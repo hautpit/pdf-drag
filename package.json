@@ -1,0 +1,81 @@
+{
+  "name": "pdf-drag",
+  "description": "PDF Drag",
+  "license": "MIT",
+  "author": "HauTP <haajutran@icloud.com>",
+  "type": "module",
+  "main": "dist/pdf-drag.js",
+  "types": "dist/main.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "storybook dev -p 6006",
+    "build": "tsc --p ./tsconfig-build.json && vite build",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build",
+    "chromatic": "npx chromatic --project-token=7c1e3acb80ff --auto-accept-changes",
+    "view-version": "npm view pdf-drag version",
+    "release": "yarn chromatic",
+    "publish-main": "sh ./publish.sh",
+    "publish-beta": "sh ./publish-beta.sh"
+  },
+  "dependencies": {
+    "immutability-helper": "^3.1.1",
+    "react": "18.2.0",
+    "react-dnd": "^16.0.1",
+    "react-dnd-html5-backend": "16.0.1",
+    "react-dom": "18.2.0",
+    "react-paginate": "^8.2.0",
+    "react-pdf": "^7.7.1"
+  },
+  "peerDependencies": {
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
+  },
+  "devDependencies": {
+    "@storybook/addon-essentials": "8.0.0-alpha.17",
+    "@storybook/addon-interactions": "8.0.0-alpha.17",
+    "@storybook/addon-links": "8.0.0-alpha.17",
+    "@storybook/addon-mdx-gfm": "8.0.0-alpha.17",
+    "@storybook/addon-onboarding": "2.0.0-next.2",
+    "@storybook/blocks": "8.0.0-alpha.17",
+    "@storybook/react": "8.0.0-alpha.17",
+    "@storybook/react-vite": "8.0.0-alpha.17",
+    "@storybook/testing-library": "0.2.2",
+    "@types/node": "20.10.5",
+    "@types/react": "18.2.45",
+    "@types/react-dom": "18.2.18",
+    "@typescript-eslint/eslint-plugin": "6.0.0",
+    "@typescript-eslint/parser": "6.0.0",
+    "@vitejs/plugin-react-swc": "3.5.0",
+    "chromatic": "7.6.0",
+    "css-loader": "^6.10.0",
+    "eslint": "8.45.0",
+    "eslint-plugin-react-hooks": "4.6.0",
+    "eslint-plugin-react-refresh": "0.4.3",
+    "eslint-plugin-storybook": "0.6.15",
+    "path": "0.12.7",
+    "sass": "1.69.5",
+    "sass-loader": "^14.1.0",
+    "storybook": "8.0.0-alpha.17",
+    "style-loader": "^3.3.4",
+    "typescript": "5.3.3",
+    "vite": "5.0.10",
+    "vite-plugin-dts": "3.6.4",
+    "vite-plugin-lib-inject-css": "1.3.0"
+  },
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "packageManager": "yarn@3.6.4",
+  "version": "",
+  "directories": {
+    "lib": "lib"
+  },
+  "keywords": [
+    "pdf-drag"
+  ]
+}

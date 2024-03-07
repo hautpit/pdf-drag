@@ -1,0 +1,21 @@
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--regular-font) !important;
+  color: var(--primary-text-color);
+}
+
+body,
+p,
+span,
+input,
+button,
+textarea,
+div {
+  font-family: var(--regular-font) !important;
+  color: var(--primary-text-color);
+  font-size: var(--font-size);
+}

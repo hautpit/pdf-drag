@@ -1,0 +1,30 @@
+iframe span {
+  font-family: var(--regular-font);
+}
+
+.sb-main-padded.sb-show-main {
+  background-color: var(--gray-color-1);
+  padding: 0;
+}
+.sb-main-padded.sb-show-main #root {
+  min-height: 600px;
+  overflow: hidden;
+  color: var(--primary-text-color);
+}
+
+* {
+  font-family: var(--regular-font);
+}
+
+body.dark-theme {
+  background: var(--secondary-background-color) !important;
+}
+
+.sb-show-main.sb-main-fullscreen {
+  overflow: auto;
+}
+
+.storybook-root {
+  background-color: #fff;
+  padding: 1em;
+}
