@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import { memo, useRef } from "react";
 import { Colors } from "./Colors";
 import { SourceBox } from "./SourceBox";
@@ -23,6 +22,7 @@ const PdfDragBox = memo(function Container(props: PdfDragBoxProps) {
     submitButton,
     loading,
     data,
+    extraAction,
   } = props;
 
   const boxRef = useRef<TargetBoxRef>(null);
@@ -76,7 +76,12 @@ const PdfDragBox = memo(function Container(props: PdfDragBoxProps) {
               ))}
             </div>
             <div className="pdf-drag-section">
-              <TargetBox ref={boxRef} pdf={pdf} data={data} />
+              <TargetBox
+                ref={boxRef}
+                pdf={pdf}
+                data={data}
+                extraAction={extraAction}
+              />
             </div>
             <div className="pdf-drag-actions">
               <div className="pdf-drag-extra">{props.extra}</div>

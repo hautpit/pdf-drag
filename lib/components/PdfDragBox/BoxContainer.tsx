@@ -10,7 +10,7 @@ import {
 import type { XYCoord } from "react-dnd";
 import { useDrop } from "react-dnd";
 import { BOX_HEIGHT, BOX_WIDTH, Box } from "./Box";
-import type { DragItem } from "./interfaces";
+import type { DragItem, ExtraAction } from "./interfaces";
 import { ItemTypes } from "./interfaces";
 import { Document, Page } from "react-pdf";
 import { useDevice } from "../../hooks";
@@ -41,6 +41,7 @@ export interface ContainerProps {
   onChange: (data: BoxModel[]) => void;
   onChangePage: (page: number) => void;
   onChangeNumPages: (numPages: number) => void;
+  extraAction?: ExtraAction;
 }
 
 export interface ContainerState {
@@ -75,6 +76,7 @@ const Container = (
     onChangeNumPages,
     pageHeight,
     pageWidth,
+    extraAction,
   }: ContainerProps,
   ref: Ref<BoxContainerRef>
 ) => {
@@ -104,13 +106,15 @@ const Container = (
   };
 
   const moveBox = useCallback(
-    (id: number, left: number, top: number) => {
+    (id: React.Key, left: number, top: number) => {
       const newBoxes = [...boxes];
-      const newBox = newBoxes.find((boxItem) => boxItem.id === Number(id));
+      const newBox = newBoxes.find((boxItem) => boxItem.id === id);
+
       if (newBox) {
         newBox.left = left;
         newBox.top = top;
       }
+
       setMovingKey(id);
       onChange(newBoxes);
     },
@@ -118,7 +122,7 @@ const Container = (
   );
 
   const handleChangeBoxSize = useCallback(
-    (id: number, width: number, height: number) => {
+    (id: React.Key, width: number, height: number) => {
       const newBoxes = [...boxes];
 
       const newBox = newBoxes.find((boxItem) => boxItem.id === id);
@@ -222,7 +226,7 @@ const Container = (
           item.left + delta.x + (os === "Safari" ? 0 : 10)
         );
         const top = Math.round(item.top + delta.y + (os === "Safari" ? 0 : 16));
-        moveBox(Number(item.id), left, top);
+        moveBox(item.id, left, top);
         return undefined;
       },
     }),
@@ -302,7 +306,6 @@ const Container = (
   const handleBox = (handleBox: HandleBox) => {
     // const boxesListT = [...boxesList];
     // const boxItem: any = boxesListT.find((b) => b.id === box.id);
-
     // Calculate coordinates
     const top = handleBox.position.top;
     const left = handleBox.position.left;
@@ -379,6 +382,7 @@ const Container = (
           activeKey={movingKey}
           imageType={box.imageType}
           resizable={box.resizable}
+          extraAction={extraAction}
         >
           {title}
         </Box>

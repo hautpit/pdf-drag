@@ -10,7 +10,7 @@ import {
 import type { DropTargetMonitor } from "react-dnd";
 import { useDrop } from "react-dnd";
 import { Colors } from "./Colors";
-import type { DragItem } from "./interfaces";
+import type { DragItem, ExtraAction } from "./interfaces";
 import { BoxContainer, BoxContainerRef } from "./BoxContainer";
 import { BOX_HEIGHT, BOX_WIDTH } from "./Box";
 import { useDevice } from "../../hooks";
@@ -44,6 +44,7 @@ export interface TargetBoxProps {
   pdf: string;
   pageHeight: number;
   pageWidth: number;
+  extraAction?: ExtraAction;
 }
 
 export interface TargetBoxRef {
@@ -64,6 +65,7 @@ const TargetBoxComponent = (
     pdf,
     pageHeight,
     pageWidth,
+    extraAction,
   }: TargetBoxProps,
   ref: Ref<BoxContainerRef>
 ) => {
@@ -143,6 +145,7 @@ const TargetBoxComponent = (
         onChangeNumPages={onChangeNumPages}
         pageHeight={pageHeight}
         pageWidth={pageWidth}
+        extraAction={extraAction}
       />
 
       <div
@@ -181,6 +184,7 @@ export interface StatefulTargetBoxState {
   pdf: string;
   isMultiple?: boolean;
   data?: PdfDragBoxData[];
+  extraAction?: ExtraAction;
 }
 
 const StatefulTargetBoxComponent = (
@@ -190,7 +194,7 @@ const StatefulTargetBoxComponent = (
   const boxRef = useRef<BoxContainerRef>(null);
   const { os } = useDevice();
 
-  const { data = [] } = props;
+  const { data = [], extraAction } = props;
 
   // States
   const [offset, setOffset] = useState<Offset>();
@@ -202,6 +206,7 @@ const StatefulTargetBoxComponent = (
 
   const handleBoxes = () => {
     const newBoxes: BoxModel[] = [];
+
     data.forEach((item, index) => {
       let position: Position | undefined;
       if (item.position) {
@@ -221,7 +226,7 @@ const StatefulTargetBoxComponent = (
       if (position) {
         const { top, left, width, height } = position;
         const newBox: BoxModel = {
-          id: new Date().getMilliseconds() + index,
+          id: item.id ?? new Date().getMilliseconds() + index,
           image: item.image,
           page: item.page,
           top,
@@ -283,6 +288,7 @@ const StatefulTargetBoxComponent = (
           box.top = Math.round(top);
           box.width = item.width ?? box.width;
           box.height = item.height ?? box.height;
+          box.page = pageNumber;
         }
 
         setBoxes(newBoxes);
@@ -339,6 +345,7 @@ const StatefulTargetBoxComponent = (
         onChangeNumPages={handleChangeNumPages}
         pageHeight={pageHeight}
         pageWidth={pageWidth}
+        extraAction={extraAction}
       />
     </div>
   );

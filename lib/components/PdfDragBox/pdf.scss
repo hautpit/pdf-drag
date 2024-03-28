@@ -151,7 +151,7 @@
 
 .drag-box {
   &:hover {
-    .drag-remove-btn {
+    .drag-box-btn {
       opacity: 1;
     }
   }
@@ -165,21 +165,38 @@
   }
 }
 
-.drag-remove-btn {
+.drag-box-btn {
   position: absolute;
   z-index: 1000000;
-  padding: 3px;
   cursor: pointer;
   background: #fff;
   border-radius: 100%;
-  border: 1px solid rgb(253, 53, 53);
-  color: rgb(253, 53, 53);
   top: -18px;
   right: -18px;
   opacity: 0;
   transition: 0.5s;
   font-size: 12px;
+  transition: 1s;
+  border: 1px solid;
+  height: 16px;
+  width: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
+
+.remove-btn {
+  border-color: rgb(253, 53, 53);
+  color: rgb(253, 53, 53);
+  top: -18px;
+}
+
+.menu-btn {
+  border-color: #2c8aee;
+  color: #2c8aee;
+  top: 4px;
+}
+
 .pdf-drag-actions {
   position: fixed;
   left: 10px;

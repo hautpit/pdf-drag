@@ -1,9 +1,10 @@
 import { type CSSProperties, type FC, type ReactNode, useEffect } from "react";
 import { useDrag } from "react-dnd";
 import { BoxStyle, ResizableBox } from "./ResizableBox";
-import { ItemTypes } from "./interfaces";
-import { HandleBox, ImageType } from "./PdfDragBox.types";
+import { ExtraAction, ItemTypes } from "./interfaces";
+import { BoxModel, HandleBox, ImageType } from "./PdfDragBox.types";
 import { TrashOutlined } from "./icons";
+import { EditOutlined } from "./icons/EditOutlined";
 
 export const BOX_HEIGHT = 60;
 export const BOX_WIDTH = 120;
@@ -32,8 +33,9 @@ export interface BoxProps {
   image?: string;
   imageType?: ImageType;
   activeKey: any;
-  data: any;
+  data: BoxModel[];
   resizable?: boolean;
+  extraAction?: ExtraAction;
 }
 
 export const Box: FC<BoxProps> = ({
@@ -54,6 +56,7 @@ export const Box: FC<BoxProps> = ({
   imageType,
   resizable,
   activeKey,
+  extraAction,
 }) => {
   useEffect(() => {
     handleBox();
@@ -99,11 +102,20 @@ export const Box: FC<BoxProps> = ({
       );
     }
   };
+
+  const handleClickExtraBox = () => {
+    const findBox = data.find((item) => item.id === id);
+    if (findBox) {
+      extraAction?.onClick(findBox);
+    }
+  };
+
   return (
     <div
       className={`drag-box${
         id.toString() === activeKey?.toString() ? " active-box" : ""
       }`}
+      id={id.toString()}
       ref={drag}
       style={{
         ...style,
@@ -146,7 +158,6 @@ export const Box: FC<BoxProps> = ({
           resizable={resizable}
         />
       </div>
-
       <div
         onClick={(e) => {
           e.preventDefault();
@@ -156,8 +167,17 @@ export const Box: FC<BoxProps> = ({
           }
         }}
       >
-        <TrashOutlined className="drag-remove-btn" />
+        <div className="drag-box-btn remove-btn">
+          <TrashOutlined />
+        </div>
       </div>
+      {extraAction && (
+        <div onClick={() => handleClickExtraBox()} title={extraAction.title}>
+          <div className="drag-box-btn menu-btn">
+            <EditOutlined />
+          </div>
+        </div>
+      )}
     </div>
   );
 };

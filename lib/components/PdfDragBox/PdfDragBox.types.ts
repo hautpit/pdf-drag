@@ -1,7 +1,9 @@
+import { ExtraAction } from "./interfaces";
+
 type ImageType = "contain" | "cover" | "fill" | "none" | "scale-down";
 
 interface BoxItem {
-  id: number;
+  id: React.Key;
   image?: string;
   title?: string;
   text?: string;
@@ -13,7 +15,7 @@ interface BoxItem {
 }
 
 interface SourceBoxItem {
-  id: number;
+  id: React.Key;
   title?: string;
   image?: string;
   multiple?: boolean;
@@ -24,11 +26,17 @@ interface SourceBoxItem {
 }
 
 export interface PdfDragBoxData {
+  id: React.Key;
   position?: Position;
   coordinates?: number[];
   page: number;
   image: string;
   title: string;
+}
+
+interface ErrorType {
+  code: number;
+  text: string;
 }
 
 export interface PdfDragBoxProps {
@@ -43,6 +51,8 @@ export interface PdfDragBoxProps {
   };
   loading?: boolean;
   extra?: React.ReactNode;
+  extraAction?: ExtraAction;
+  onError?: (errs: ErrorType[]) => void;
 }
 
 interface Position {
@@ -60,7 +70,7 @@ interface HandleBox {
 }
 
 interface BoxModel {
-  id: number;
+  id: React.Key;
   top: number;
   left: number;
   title?: string;
