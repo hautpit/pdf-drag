@@ -22,6 +22,7 @@ const Template: StoryFn<PdfDragBoxProps> = (args: PdfDragBoxProps) => {
           title: "kyso@vntt.com.vn",
           multiple: false,
           text: "Chữ ký mặc định của công ty",
+          resizable: true,
         },
         {
           id: "https://localhost:44356/api/personalProfiles/281/getSignatureSmartCAImageById",
@@ -30,6 +31,7 @@ const Template: StoryFn<PdfDragBoxProps> = (args: PdfDragBoxProps) => {
           title: "duydd1@vntt.com.vn",
           multiple: false,
           text: "Ký số cá nhân",
+          resizable: true,
         },
       ]}
       pdf={pdf}
@@ -43,6 +45,7 @@ const Template: StoryFn<PdfDragBoxProps> = (args: PdfDragBoxProps) => {
           page: 1,
           title: "ss",
           coordinates: [210, 629, 330, 689],
+          resizable: true,
         },
         {
           id: "https://localhost:44356/api/personalProfiles/281/getSignatureSmartCAImageById",
@@ -51,6 +54,7 @@ const Template: StoryFn<PdfDragBoxProps> = (args: PdfDragBoxProps) => {
           page: 1,
           title: "duydd1@vntt.com.vn",
           coordinates: [245, 408, 365, 468],
+          resizable: true,
         },
         {
           id: "https://localhost:44356/api/personalProfiles/281/getSignatureSmartCAImageById?",
@@ -59,6 +63,7 @@ const Template: StoryFn<PdfDragBoxProps> = (args: PdfDragBoxProps) => {
           page: 2,
           title: "duydd1@vntt.com.vn",
           coordinates: [211, 511, 331, 571],
+          resizable: true,
         },
       ]}
       extraAction={{

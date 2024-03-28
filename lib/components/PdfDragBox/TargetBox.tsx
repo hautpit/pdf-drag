@@ -206,7 +206,6 @@ const StatefulTargetBoxComponent = (
 
   const handleBoxes = () => {
     const newBoxes: BoxModel[] = [];
-
     data.forEach((item, index) => {
       let position: Position | undefined;
       if (item.position) {
@@ -225,6 +224,7 @@ const StatefulTargetBoxComponent = (
 
       if (position) {
         const { top, left, width, height } = position;
+
         const newBox: BoxModel = {
           id: item.id ?? new Date().getMilliseconds() + index,
           image: item.image,
@@ -233,6 +233,7 @@ const StatefulTargetBoxComponent = (
           left,
           width,
           height,
+          resizable: item.resizable,
         };
         newBoxes.push(newBox);
       }
@@ -289,6 +290,7 @@ const StatefulTargetBoxComponent = (
           box.width = item.width ?? box.width;
           box.height = item.height ?? box.height;
           box.page = pageNumber;
+          box.resizable = item.resizable;
         }
 
         setBoxes(newBoxes);

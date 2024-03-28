@@ -32,6 +32,7 @@ export interface PdfDragBoxData {
   page: number;
   image: string;
   title: string;
+  resizable?: boolean;
 }
 
 interface ErrorType {
