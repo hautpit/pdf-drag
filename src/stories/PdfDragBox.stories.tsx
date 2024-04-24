@@ -23,19 +23,19 @@ const Template: StoryFn<PdfDragBoxProps> = (args: PdfDragBoxProps) => {
           multiple: false,
           text: "Chữ ký mặc định của công ty",
           resizable: true,
-          width: 200,
-          height: 100,
+          // width: 200,
+          // height: 100,
         },
         {
-          id: "https://localhost:44356/api/personalProfiles/281/getSignatureSmartCAImageById",
+          id: "https://library.vntts.vn/api/PublicLibrary/ViewFile/ssz32xr7yvlifjfuhvw3hd07uyu0x7ucezao7b8yleclnoy7rf",
           image:
-            "https://localhost:44356/api/personalProfiles/281/getSignatureSmartCAImageById",
+            "https://library.vntts.vn/api/PublicLibrary/ViewFile/ssz32xr7yvlifjfuhvw3hd07uyu0x7ucezao7b8yleclnoy7rf",
           title: "duydd1@vntt.com.vn",
           multiple: false,
           text: "Ký số cá nhân",
           resizable: true,
-          width: 200,
-          height: 20,
+          width: 90,
+          height: 12,
         },
       ]}
       pdf={pdf}
