@@ -23,6 +23,8 @@ const Template: StoryFn<PdfDragBoxProps> = (args: PdfDragBoxProps) => {
           multiple: false,
           text: "Chữ ký mặc định của công ty",
           resizable: true,
+          width: 200,
+          height: 100,
         },
         {
           id: "https://localhost:44356/api/personalProfiles/281/getSignatureSmartCAImageById",
@@ -32,6 +34,8 @@ const Template: StoryFn<PdfDragBoxProps> = (args: PdfDragBoxProps) => {
           multiple: false,
           text: "Ký số cá nhân",
           resizable: true,
+          width: 200,
+          height: 100,
         },
       ]}
       pdf={pdf}

@@ -1,10 +1,12 @@
 import type { CSSProperties, FC, ReactNode } from "react";
-import { memo, useCallback, useMemo, useState } from "react";
+import { memo, useCallback, useEffect, useMemo, useState } from "react";
+import { DragPreviewImage } from "react-dnd";
 import type { DragSourceMonitor } from "react-dnd";
 import { useDrag } from "react-dnd";
 import { Colors } from "./Colors";
 import { SourceBoxItem } from "./PdfDragBox.types";
 import { DragOutlined } from "./icons";
+import { getEmptyImage } from "react-dnd-html5-backend";
 
 const style: CSSProperties = {
   border: "1px dashed gray",
@@ -27,21 +29,24 @@ export const SourceBox: FC<SourceBoxProps> = memo(function SourceBox({
   item,
 }: SourceBoxProps) {
   const [forbidDrag, setForbidDrag] = useState(false);
-  const [{ isDragging }, drag] = useDrag(
+
+  const previewOptions = {
+    offsetX: 127,
+    offsetY: 128,
+  };
+
+  const [{ isDragging }, drag, preview] = useDrag(
     () => ({
       type: color,
       item,
+      previewOptions,
       canDrag: !forbidDrag,
       collect: (monitor: DragSourceMonitor) => ({
         isDragging: monitor.isDragging(),
       }),
     }),
-    [forbidDrag, color]
+    [forbidDrag, color, item, previewOptions]
   );
-
-  const onToggleForbidDrag = useCallback(() => {
-    setForbidDrag(!forbidDrag);
-  }, [forbidDrag, setForbidDrag]);
 
   const backgroundColor = useMemo(() => {
     switch (color) {
@@ -57,14 +62,22 @@ export const SourceBox: FC<SourceBoxProps> = memo(function SourceBox({
   const containerStyle = useMemo(
     () => ({
       ...style,
-
       opacity: isDragging ? 0.4 : 1,
     }),
     [isDragging, forbidDrag, backgroundColor]
   );
 
+  // useEffect(() => {
+  //   preview(getEmptyImage(), { captureDraggingState: true });
+  // }, []);
+
+  // const img = new Image();
+  // img.src = item.image ?? "";
+  // preview(img, previewOptions);
+
   return (
     <div style={containerStyle} className="pdf-box-item">
+      {/* <DragPreviewImage src={item.image ?? ""} connect={preview} /> */}
       <div
         className="flex flex-items-center pdf-box-image"
         style={{
@@ -82,8 +95,8 @@ export const SourceBox: FC<SourceBoxProps> = memo(function SourceBox({
         <div
           style={{
             position: "absolute",
-            height: "100%",
-            width: "100%",
+            // height: "100%",
+            // width: "100%",
           }}
           className="flex justify-center"
         >
@@ -91,7 +104,8 @@ export const SourceBox: FC<SourceBoxProps> = memo(function SourceBox({
             src={item.image}
             alt="signature"
             style={{
-              height: "100%",
+              height: item.height,
+              width: item.width,
               cursor: "move",
               // margin: 'auto',
             }}

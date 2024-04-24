@@ -37,9 +37,10 @@
 
 .pdf-box-image {
   width: 100%;
-  height: 50px;
+  height: 100px;
   user-select: none;
   -webkit-user-select: none;
+  overflow: hidden;
   img {
     width: 100%;
     object-fit: contain;
@@ -240,8 +241,8 @@
 .pdf-box-icon {
   position: absolute;
   z-index: 2;
-  top: -6px;
-  left: -4px;
+  top: 0px;
+  left: 0px;
   user-select: none;
   -webkit-user-select: none;
 }

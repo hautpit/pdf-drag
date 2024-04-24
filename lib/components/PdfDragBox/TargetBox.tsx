@@ -125,7 +125,7 @@ const TargetBoxComponent = (
   return (
     <div
       ref={drop}
-      data-color={"blue"}
+      data-color={"red"}
       style={{ ...style, backgroundColor, opacity }}
       role="TargetBoxComponent"
     >
@@ -274,7 +274,7 @@ const StatefulTargetBoxComponent = (
           const newBox: BoxModel = {
             id: multiple ? new Date().getMilliseconds() : item.id,
             left: Math.round(left),
-            top: Math.round(top),
+            top: Math.round(top - 2),
             title: item.title,
             image: item.image,
             page: pageNumber,
@@ -285,8 +285,8 @@ const StatefulTargetBoxComponent = (
           };
           newBoxes.push(newBox);
         } else {
-          box.left = Math.round(left);
-          box.top = Math.round(top);
+          box.left = Math.round(left - 6);
+          box.top = Math.round(top - 6);
           box.width = item.width ?? box.width;
           box.height = item.height ?? box.height;
           box.page = pageNumber;
