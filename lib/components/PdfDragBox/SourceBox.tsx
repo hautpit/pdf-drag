@@ -84,6 +84,7 @@ export const SourceBox: FC<SourceBoxProps> = memo(function SourceBox({
           opacity: isDragging ? 0.4 : 1,
           position: "relative",
           cursor: "move",
+          height: item.height,
         }}
         ref={drag}
         role="SourceBox"

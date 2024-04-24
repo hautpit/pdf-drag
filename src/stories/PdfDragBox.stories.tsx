@@ -35,7 +35,7 @@ const Template: StoryFn<PdfDragBoxProps> = (args: PdfDragBoxProps) => {
           text: "Ký số cá nhân",
           resizable: true,
           width: 200,
-          height: 100,
+          height: 20,
         },
       ]}
       pdf={pdf}
