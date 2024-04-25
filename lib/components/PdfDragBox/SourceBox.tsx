@@ -7,6 +7,7 @@ import { Colors } from "./Colors";
 import { SourceBoxItem } from "./PdfDragBox.types";
 import { DragOutlined } from "./icons";
 import { MousePosition } from "./interfaces";
+import { BOX_HEIGHT, BOX_WIDTH } from "./Box";
 
 const style: CSSProperties = {
   border: "1px dashed gray",
@@ -87,7 +88,8 @@ export const SourceBox: FC<SourceBoxProps> = memo(function SourceBox({
           opacity: isDragging ? 0.4 : 1,
           position: "relative",
           cursor: "move",
-          height: item.height ?? 100,
+          height: item.height ?? BOX_HEIGHT,
+          // width: item.width ?? BOX_WIDTH,
         }}
         ref={drag}
         role="SourceBox"
@@ -111,8 +113,8 @@ export const SourceBox: FC<SourceBoxProps> = memo(function SourceBox({
             src={item.image}
             alt="signature"
             style={{
-              height: item.height,
-              width: item.width,
+              height: item.height ?? BOX_HEIGHT,
+              width: item.width ?? BOX_WIDTH,
               cursor: "move",
               // margin: 'auto',
             }}
