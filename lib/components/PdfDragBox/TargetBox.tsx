@@ -10,7 +10,7 @@ import {
 import type { DropTargetMonitor } from "react-dnd";
 import { useDrop } from "react-dnd";
 import { Colors } from "./Colors";
-import type { DragItem, ExtraAction } from "./interfaces";
+import type { DragItem, ExtraAction, MousePosition } from "./interfaces";
 import { BoxContainer, BoxContainerRef } from "./BoxContainer";
 import { BOX_HEIGHT, BOX_WIDTH } from "./Box";
 import { useDevice } from "../../hooks";
@@ -185,6 +185,7 @@ export interface StatefulTargetBoxState {
   isMultiple?: boolean;
   data?: PdfDragBoxData[];
   extraAction?: ExtraAction;
+  mousePosition: MousePosition | undefined;
 }
 
 const StatefulTargetBoxComponent = (
@@ -194,7 +195,7 @@ const StatefulTargetBoxComponent = (
   const boxRef = useRef<BoxContainerRef>(null);
   const { os } = useDevice();
 
-  const { data = [], extraAction } = props;
+  const { data = [], extraAction, mousePosition } = props;
 
   // States
   const [offset, setOffset] = useState<Offset>();
@@ -260,21 +261,26 @@ const StatefulTargetBoxComponent = (
 
   const handleDrop = useCallback(
     (item: SourceBoxItem, offsetT: Offset) => {
+      const boxElement: any = document.getElementById(`box-${item.id}`);
+
       const { multiple = true } = item;
       const newBoxes = [...boxes];
       const pdfDoc = document.querySelector(".react-pdf__Document");
-      if (pdfDoc) {
+
+      if (pdfDoc && mousePosition) {
         const elementPosition = pdfDoc.getBoundingClientRect();
+        const offsetTop = mousePosition.top - boxElement.offsetTop;
+        const offsetLeft = mousePosition.left - boxElement.offsetLeft;
 
         const box = newBoxes.find((boxItem) => boxItem.id === item.id);
-        const left = offsetT.x - elementPosition.x - (os === "Safari" ? 4 : 0);
-        const top = offsetT.y - elementPosition.y + (os === "Safari" ? 6 : 0);
+        const left = offsetT.x - elementPosition.x - offsetLeft;
+        const top = offsetT.y - elementPosition.y - offsetTop;
 
         if (multiple || !box) {
           const newBox: BoxModel = {
             id: multiple ? new Date().getMilliseconds() : item.id,
             left: Math.round(left),
-            top: Math.round(top - 2),
+            top: Math.round(top),
             title: item.title,
             image: item.image,
             page: pageNumber,
@@ -285,8 +291,8 @@ const StatefulTargetBoxComponent = (
           };
           newBoxes.push(newBox);
         } else {
-          box.left = Math.round(left - 6);
-          box.top = Math.round(top - 6);
+          box.left = Math.round(left);
+          box.top = Math.round(top);
           box.width = item.width ?? box.width;
           box.height = item.height ?? box.height;
           box.page = pageNumber;
@@ -296,7 +302,7 @@ const StatefulTargetBoxComponent = (
         setBoxes(newBoxes);
       }
     },
-    [boxes, setBoxes, pageNumber]
+    [boxes, setBoxes, pageNumber, mousePosition]
   );
 
   const handleChange = (boxList: BoxModel[]) => {

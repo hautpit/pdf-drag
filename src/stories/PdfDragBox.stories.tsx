@@ -17,20 +17,19 @@ const Template: StoryFn<PdfDragBoxProps> = (args: PdfDragBoxProps) => {
       itemsTitle="Signatures"
       boxes={[
         {
-          id: "https://localhost:44356/api/v2/System/DefaultSignature",
-          image: "https://localhost:44356/api/v2/System/DefaultSignature",
+          id: "https://m.media-amazon.com/images/I/71L0EbialtL.jpg",
+          image: "https://m.media-amazon.com/images/I/71L0EbialtL.jpg",
           title: "kyso@vntt.com.vn",
           multiple: false,
           text: "Chữ ký mặc định của công ty",
           resizable: true,
-          // width: 200,
-          // height: 100,
+          width: 200,
+          height: 100,
         },
         {
           id: "https://library.vntts.vn/api/PublicLibrary/ViewFile/ssz32xr7yvlifjfuhvw3hd07uyu0x7ucezao7b8yleclnoy7rf",
           image:
             "https://library.vntts.vn/api/PublicLibrary/ViewFile/ssz32xr7yvlifjfuhvw3hd07uyu0x7ucezao7b8yleclnoy7rf",
-          title: "duydd1@vntt.com.vn",
           multiple: false,
           text: "Ký số cá nhân",
           resizable: true,

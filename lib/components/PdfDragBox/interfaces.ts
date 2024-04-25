@@ -17,3 +17,8 @@ export interface ExtraAction {
   icon: React.ReactNode;
   title?: string;
 }
+
+export interface MousePosition {
+  top: number;
+  left: number;
+}

@@ -238,14 +238,15 @@
   }
 }
 
-.pdf-box-icon {
-  position: absolute;
-  z-index: 2;
-  top: 0px;
-  left: 0px;
-  user-select: none;
-  -webkit-user-select: none;
-}
+// .pdf-box-icon {
+//   position: absolute;
+//   z-index: 2;
+//   top: -4px;
+//   left: 0px;
+//   user-select: none;
+//   -webkit-user-select: none;
+//   z-index: 1000;
+// }
 
 .pagination {
   display: flex;

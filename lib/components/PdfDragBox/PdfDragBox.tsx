@@ -1,4 +1,4 @@
-import { memo, useRef } from "react";
+import { memo, useRef, useState } from "react";
 import { Colors } from "./Colors";
 import { SourceBox } from "./SourceBox";
 import { StatefulTargetBox as TargetBox, TargetBoxRef } from "./TargetBox";
@@ -10,6 +10,7 @@ import "react-pdf/dist/esm/Page/AnnotationLayer.css";
 import "./pdf.scss";
 import { PdfDragBoxProps } from ".";
 import { NotificationCircleOutlined } from "./icons";
+import { MousePosition } from "./interfaces";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
 
@@ -27,6 +28,8 @@ const PdfDragBox = memo(function Container(props: PdfDragBoxProps) {
 
   const boxRef = useRef<TargetBoxRef>(null);
 
+  const [mousePosition, setMousePosition] = useState<MousePosition>();
+
   const getBoxes = () => {
     const boxesData = boxRef?.current?.getBoxes();
 
@@ -38,6 +41,10 @@ const PdfDragBox = memo(function Container(props: PdfDragBoxProps) {
       const boxesData = getBoxes();
       onSubmit(boxesData);
     }
+  };
+
+  const handleChangeMousePosition = (position: MousePosition) => {
+    setMousePosition(position);
   };
 
   return (
@@ -67,6 +74,7 @@ const PdfDragBox = memo(function Container(props: PdfDragBoxProps) {
                     resizable:
                       box.resizable !== undefined ? box.resizable : true,
                   }}
+                  onMouseClick={handleChangeMousePosition}
                 >
                   <div style={{ fontSize: 12, textAlign: "center" }}>
                     <b>{box.title}</b>
@@ -81,6 +89,7 @@ const PdfDragBox = memo(function Container(props: PdfDragBoxProps) {
                 pdf={pdf}
                 data={data}
                 extraAction={extraAction}
+                mousePosition={mousePosition}
               />
             </div>
             <div className="pdf-drag-actions">

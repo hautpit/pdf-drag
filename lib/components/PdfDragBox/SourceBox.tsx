@@ -6,11 +6,11 @@ import { useDrag } from "react-dnd";
 import { Colors } from "./Colors";
 import { SourceBoxItem } from "./PdfDragBox.types";
 import { DragOutlined } from "./icons";
-import { getEmptyImage } from "react-dnd-html5-backend";
+import { MousePosition } from "./interfaces";
 
 const style: CSSProperties = {
   border: "1px dashed gray",
-  padding: "0.5rem",
+  padding: 0,
   margin: "0.5rem",
 };
 
@@ -20,6 +20,7 @@ export interface SourceBoxProps {
   onToggleForbidDrag?: () => void;
   children?: ReactNode;
   item: SourceBoxItem;
+  onMouseClick: (position: MousePosition) => void;
 }
 
 export const SourceBox: FC<SourceBoxProps> = memo(function SourceBox({
@@ -27,6 +28,7 @@ export const SourceBox: FC<SourceBoxProps> = memo(function SourceBox({
   title,
   children,
   item,
+  onMouseClick,
 }: SourceBoxProps) {
   const [forbidDrag, setForbidDrag] = useState(false);
 
@@ -79,6 +81,7 @@ export const SourceBox: FC<SourceBoxProps> = memo(function SourceBox({
     <div style={containerStyle} className="pdf-box-item">
       {/* <DragPreviewImage src={item.image ?? ""} connect={preview} /> */}
       <div
+        id={`box-${item.id.toString()}`}
         className="flex flex-items-center pdf-box-image"
         style={{
           opacity: isDragging ? 0.4 : 1,
@@ -89,10 +92,13 @@ export const SourceBox: FC<SourceBoxProps> = memo(function SourceBox({
         ref={drag}
         role="SourceBox"
         data-color={color}
+        onMouseDown={(e) => {
+          onMouseClick({ top: e.clientY, left: e.clientX });
+        }}
       >
-        <div className="pdf-box-icon">
+        {/* <div className="pdf-box-icon">
           <DragOutlined />
-        </div>
+        </div> */}
         <div
           style={{
             position: "absolute",
