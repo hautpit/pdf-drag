@@ -2,6 +2,17 @@ import { ExtraAction } from "./interfaces";
 
 type ImageType = "contain" | "cover" | "fill" | "none" | "scale-down";
 
+interface BoxItemText {
+  text: string;
+  fontFamily?: string;
+  fontSize?: number;
+  color?: string;
+}
+
+interface PdfRef {
+  updateData: () => void;
+}
+
 interface BoxItem {
   id: React.Key;
   image?: string;
@@ -12,6 +23,8 @@ interface BoxItem {
   height?: number;
   imageType?: ImageType;
   resizable?: boolean;
+  texts?: BoxItemText[];
+  isShowImage?: boolean;
 }
 
 interface SourceBoxItem {
@@ -23,6 +36,8 @@ interface SourceBoxItem {
   height?: number;
   imageType?: ImageType;
   resizable?: boolean;
+  texts: BoxItemText[];
+  isShowImage: boolean;
 }
 
 export interface PdfDragBoxData {
@@ -30,9 +45,11 @@ export interface PdfDragBoxData {
   position?: Position;
   coordinates?: number[];
   page: number;
-  image: string;
+  image?: string;
   title: string;
   resizable?: boolean;
+  texts: BoxItemText[];
+  isShowImage?: boolean;
 }
 
 interface ErrorType {
@@ -54,6 +71,7 @@ export interface PdfDragBoxProps {
   extra?: React.ReactNode;
   extraAction?: ExtraAction;
   onError?: (errs: ErrorType[]) => void;
+  onChangeData?: (data: ContainerBoxItem[]) => void;
 }
 
 interface Position {
@@ -68,6 +86,8 @@ interface HandleBox {
   position: Position;
   page: number;
   image?: string;
+  texts: BoxItemText[];
+  isShowImage?: boolean;
 }
 
 interface BoxModel {
@@ -81,6 +101,8 @@ interface BoxModel {
   imageType?: ImageType;
   page: number;
   resizable?: boolean;
+  texts: BoxItemText[];
+  isShowImage: boolean;
 }
 
 interface ContainerBoxItem {
@@ -89,6 +111,7 @@ interface ContainerBoxItem {
   image?: string;
   id: React.Key;
   position: Position;
+  texts?: BoxItemText[];
 }
 
 export type {
@@ -99,4 +122,6 @@ export type {
   Position,
   HandleBox,
   BoxModel,
+  BoxItemText,
+  PdfRef,
 };

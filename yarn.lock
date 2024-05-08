@@ -4257,6 +4257,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/webfontloader@npm:^1.6.38":
+  version: 1.6.38
+  resolution: "@types/webfontloader@npm:1.6.38"
+  checksum: 2be3d1e43837ddeea8ea0390d0952fc735abc6d713b2b87843ad0a6d4acd6628b2ce8f0280ec81d48144a23e358d1bd22c16e4717cc8d67f75c1cd1ddc2d0f27
+  languageName: node
+  linkType: hard
+
 "@types/yargs-parser@npm:*":
   version: 21.0.3
   resolution: "@types/yargs-parser@npm:21.0.3"
@@ -9572,6 +9579,7 @@ __metadata:
     "@types/node": 20.10.5
     "@types/react": 18.2.45
     "@types/react-dom": 18.2.18
+    "@types/webfontloader": ^1.6.38
     "@typescript-eslint/eslint-plugin": 6.0.0
     "@typescript-eslint/parser": 6.0.0
     "@vitejs/plugin-react-swc": 3.5.0
@@ -9598,6 +9606,7 @@ __metadata:
     vite: 5.0.10
     vite-plugin-dts: 3.6.4
     vite-plugin-lib-inject-css: 1.3.0
+    webfontloader: ^1.6.28
   peerDependencies:
     react: 18.2.0
     react-dom: 18.2.0
@@ -11758,6 +11767,13 @@ __metadata:
   dependencies:
     defaults: ^1.0.3
   checksum: 814e9d1ddcc9798f7377ffa448a5a3892232b9275ebb30a41b529607691c0491de47cba426e917a4d08ded3ee7e9ba2f3fe32e62ee3cd9c7d3bafb7754bd553c
+  languageName: node
+  linkType: hard
+
+"webfontloader@npm:^1.6.28":
+  version: 1.6.28
+  resolution: "webfontloader@npm:1.6.28"
+  checksum: cbebbe593cb0d27dbb4d418f7f96bd9893024f1f2062e858af76209b6524e25d766964b6e2a724f3b694fadef661dd3a01065455a96df05337b3281ca09ab656
   languageName: node
   linkType: hard
 

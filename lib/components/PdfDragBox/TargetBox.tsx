@@ -45,6 +45,7 @@ export interface TargetBoxProps {
   pageHeight: number;
   pageWidth: number;
   extraAction?: ExtraAction;
+  onChangeData: (data: ContainerBoxItem[]) => void;
 }
 
 export interface TargetBoxRef {
@@ -66,6 +67,7 @@ const TargetBoxComponent = (
     pageHeight,
     pageWidth,
     extraAction,
+    onChangeData,
   }: TargetBoxProps,
   ref: Ref<BoxContainerRef>
 ) => {
@@ -146,6 +148,7 @@ const TargetBoxComponent = (
         pageHeight={pageHeight}
         pageWidth={pageWidth}
         extraAction={extraAction}
+        onChangeData={onChangeData}
       />
 
       <div
@@ -186,6 +189,7 @@ export interface StatefulTargetBoxState {
   data?: PdfDragBoxData[];
   extraAction?: ExtraAction;
   mousePosition: MousePosition | undefined;
+  onChangeData: (data: ContainerBoxItem[]) => void;
 }
 
 const StatefulTargetBoxComponent = (
@@ -195,7 +199,7 @@ const StatefulTargetBoxComponent = (
   const boxRef = useRef<BoxContainerRef>(null);
   const { os } = useDevice();
 
-  const { data = [], extraAction, mousePosition } = props;
+  const { data = [], extraAction, mousePosition, onChangeData } = props;
 
   // States
   const [offset, setOffset] = useState<Offset>();
@@ -235,6 +239,8 @@ const StatefulTargetBoxComponent = (
           width,
           height,
           resizable: item.resizable,
+          texts: item.texts,
+          isShowImage: item.isShowImage === undefined ? true : item.isShowImage,
         };
         newBoxes.push(newBox);
       }
@@ -288,6 +294,8 @@ const StatefulTargetBoxComponent = (
             resizable: item.resizable,
             width: item.width ?? BOX_WIDTH,
             height: item.height ?? BOX_HEIGHT,
+            texts: item.texts,
+            isShowImage: item.isShowImage,
           };
           newBoxes.push(newBox);
         } else {
@@ -354,6 +362,7 @@ const StatefulTargetBoxComponent = (
         pageHeight={pageHeight}
         pageWidth={pageWidth}
         extraAction={extraAction}
+        onChangeData={onChangeData}
       />
     </div>
   );

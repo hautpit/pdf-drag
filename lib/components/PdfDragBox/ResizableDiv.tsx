@@ -27,7 +27,7 @@ export const ResizableDiv = () => {
 
   return (
     <div style={{ padding: 30 }}>
-      <div className="wrapper">.resizable-box</div>
+      {/* <div className="wrapper">.resizable-box</div> */}
       <div
         className="resize-bottom"
         id="Draggable"

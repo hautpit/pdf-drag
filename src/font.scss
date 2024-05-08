@@ -4,7 +4,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: var(--regular-font) !important;
+  font-family: var(--regular-font);
   color: var(--primary-text-color);
 }
 
@@ -15,7 +15,7 @@ input,
 button,
 textarea,
 div {
-  font-family: var(--regular-font) !important;
+  font-family: var(--regular-font);
   color: var(--primary-text-color);
   font-size: var(--font-size);
 }

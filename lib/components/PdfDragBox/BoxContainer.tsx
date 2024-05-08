@@ -12,7 +12,7 @@ import { useDrop } from "react-dnd";
 import { BOX_HEIGHT, BOX_WIDTH, Box } from "./Box";
 import type { DragItem, ExtraAction } from "./interfaces";
 import { ItemTypes } from "./interfaces";
-import { Document, Page } from "react-pdf";
+import { Document, Page, useDocumentContext } from "react-pdf";
 import { useDevice } from "../../hooks";
 import ReactPaginate from "react-paginate";
 
@@ -42,6 +42,7 @@ export interface ContainerProps {
   onChangePage: (page: number) => void;
   onChangeNumPages: (numPages: number) => void;
   extraAction?: ExtraAction;
+  onChangeData: (data: ContainerBoxItem[]) => void;
 }
 
 export interface ContainerState {
@@ -77,6 +78,7 @@ const Container = (
     pageHeight,
     pageWidth,
     extraAction,
+    onChangeData,
   }: ContainerProps,
   ref: Ref<BoxContainerRef>
 ) => {
@@ -297,11 +299,17 @@ const Container = (
           height: boxHeight,
           width: boxWidth,
         },
+        texts: box.texts,
       };
       newBoxesList.push(newBox);
     });
     return newBoxesList;
   };
+
+  useEffect(() => {
+    const newBoxes = getBoxes();
+    onChangeData(newBoxes);
+  }, [JSON.stringify(boxes)]);
 
   const handleBox = (handleBox: HandleBox) => {
     // const boxesListT = [...boxesList];
@@ -327,6 +335,8 @@ const Container = (
         page: box.page,
         title: box.title,
         image: box.image,
+        texts: box.texts,
+        isShowImage: box.isShowImage === undefined ? true : box.isShowImage,
       };
     } else {
       const newBox: BoxModel = {
@@ -338,6 +348,9 @@ const Container = (
         page: handleBox.page,
         title: "",
         image: handleBox.image,
+        texts: handleBox.texts,
+        isShowImage:
+          handleBox.isShowImage === undefined ? true : handleBox.isShowImage,
       };
       newBoxes.push(newBox);
     }
@@ -383,6 +396,8 @@ const Container = (
           imageType={box.imageType}
           resizable={box.resizable}
           extraAction={extraAction}
+          texts={box.texts}
+          isShowImage={box.isShowImage}
         >
           {title}
         </Box>

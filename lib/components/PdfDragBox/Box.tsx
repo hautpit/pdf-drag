@@ -2,7 +2,12 @@ import { type CSSProperties, type FC, type ReactNode, useEffect } from "react";
 import { useDrag } from "react-dnd";
 import { BoxStyle, ResizableBox } from "./ResizableBox";
 import { ExtraAction, ItemTypes } from "./interfaces";
-import { BoxModel, HandleBox, ImageType } from "./PdfDragBox.types";
+import {
+  BoxItemText,
+  BoxModel,
+  HandleBox,
+  ImageType,
+} from "./PdfDragBox.types";
 import { TrashOutlined } from "./icons";
 import { EditOutlined } from "./icons/EditOutlined";
 
@@ -36,7 +41,13 @@ export interface BoxProps {
   data: BoxModel[];
   resizable?: boolean;
   extraAction?: ExtraAction;
+  texts: BoxItemText[];
+  isShowImage: boolean;
 }
+
+const DEFAULT_FONT_SIZE = 6;
+const DEFAULT_FONT_FAMILY = "Roboto";
+const DEFAULT_COLOR = "#d02b2b";
 
 export const Box: FC<BoxProps> = ({
   id,
@@ -57,6 +68,8 @@ export const Box: FC<BoxProps> = ({
   resizable,
   activeKey,
   extraAction,
+  texts,
+  isShowImage,
 }) => {
   useEffect(() => {
     handleBox();
@@ -67,6 +80,7 @@ export const Box: FC<BoxProps> = ({
       id,
       image,
       page,
+      texts,
       position: {
         left,
         top,
@@ -137,16 +151,37 @@ export const Box: FC<BoxProps> = ({
         }}
         className="block flex justify-center"
       >
-        <img
-          alt="signature"
-          src={image}
-          style={{
-            height: "100%",
-            width: "100%",
-            objectFit: imageType ?? "contain",
-            userSelect: "none",
-          }}
-        />
+        {isShowImage && (
+          <div style={{ flex: 1 }}>
+            <img
+              alt="signature"
+              src={image}
+              style={{
+                height: "100%",
+                width: "100%",
+                objectFit: imageType ?? "contain",
+                userSelect: "none",
+              }}
+            />
+          </div>
+        )}
+
+        {texts?.length > 0 && (
+          <div style={{ flex: 1, overflow: "hidden" }}>
+            {texts.map((textItem) => (
+              <div
+                style={{
+                  fontSize: `${textItem.fontSize ?? DEFAULT_FONT_SIZE}pt`,
+                  fontFamily: `${textItem.fontFamily ?? DEFAULT_FONT_FAMILY}`,
+                  color: textItem.color ?? DEFAULT_COLOR,
+                  fontWeight: "bold",
+                }}
+              >
+                {textItem.text}
+              </div>
+            ))}
+          </div>
+        )}
       </div>
       <div className="wrapper">
         <ResizableBox

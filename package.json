@@ -1,6 +1,6 @@
 {
   "name": "pdf-drag",
-  "version": "1.0.15",
+  "version": "1.0.17",
   "description": "PDF Drag",
   "license": "MIT",
   "author": "HauTP <haajutran@icloud.com>",
@@ -30,7 +30,8 @@
     "react-dnd-html5-backend": "16.0.1",
     "react-dom": "18.2.0",
     "react-paginate": "^8.2.0",
-    "react-pdf": "^7.7.1"
+    "react-pdf": "^7.7.1",
+    "webfontloader": "^1.6.28"
   },
   "peerDependencies": {
     "react": "18.2.0",
@@ -52,6 +53,7 @@
     "@types/node": "20.10.5",
     "@types/react": "18.2.45",
     "@types/react-dom": "18.2.18",
+    "@types/webfontloader": "^1.6.38",
     "@typescript-eslint/eslint-plugin": "6.0.0",
     "@typescript-eslint/parser": "6.0.0",
     "@vitejs/plugin-react-swc": "3.5.0",

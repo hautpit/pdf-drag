@@ -1,4 +1,12 @@
-import { memo, useRef, useState } from "react";
+import {
+  Ref,
+  forwardRef,
+  memo,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+  useState,
+} from "react";
 import { Colors } from "./Colors";
 import { SourceBox } from "./SourceBox";
 import { StatefulTargetBox as TargetBox, TargetBoxRef } from "./TargetBox";
@@ -8,13 +16,15 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 import "react-pdf/dist/esm/Page/TextLayer.css";
 import "react-pdf/dist/esm/Page/AnnotationLayer.css";
 import "./pdf.scss";
-import { PdfDragBoxProps } from ".";
+import { ContainerBoxItem, PdfDragBoxProps } from ".";
 import { NotificationCircleOutlined } from "./icons";
 import { MousePosition } from "./interfaces";
+import WebFont from "webfontloader";
+import { PdfRef } from "./PdfDragBox.types";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
 
-const PdfDragBox = memo(function Container(props: PdfDragBoxProps) {
+const PdfDragBoxComponent = (props: PdfDragBoxProps, ref: Ref<PdfRef>) => {
   const {
     itemsTitle = "Items",
     boxes = [],
@@ -24,7 +34,20 @@ const PdfDragBox = memo(function Container(props: PdfDragBoxProps) {
     loading,
     data,
     extraAction,
+    onChangeData,
   } = props;
+
+  useImperativeHandle(
+    ref,
+    () => {
+      return {
+        updateData: () => {
+          console.log("sssss");
+        },
+      };
+    },
+    []
+  );
 
   const boxRef = useRef<TargetBoxRef>(null);
 
@@ -45,6 +68,20 @@ const PdfDragBox = memo(function Container(props: PdfDragBoxProps) {
 
   const handleChangeMousePosition = (position: MousePosition) => {
     setMousePosition(position);
+  };
+
+  useEffect(() => {
+    WebFont.load({
+      google: {
+        families: ["Droid Sans", "Roboto", "Chilanka"],
+      },
+    });
+  }, []);
+
+  const hanldeChangeData = (data: ContainerBoxItem[]) => {
+    if (onChangeData) {
+      onChangeData(data);
+    }
   };
 
   return (
@@ -73,6 +110,9 @@ const PdfDragBox = memo(function Container(props: PdfDragBoxProps) {
                     ...box,
                     resizable:
                       box.resizable !== undefined ? box.resizable : true,
+                    texts: box.texts ?? [],
+                    isShowImage:
+                      box.isShowImage === undefined ? true : box.isShowImage,
                   }}
                   onMouseClick={handleChangeMousePosition}
                 >
@@ -87,9 +127,10 @@ const PdfDragBox = memo(function Container(props: PdfDragBoxProps) {
               <TargetBox
                 ref={boxRef}
                 pdf={pdf}
-                data={data}
+                data={data as any}
                 extraAction={extraAction}
                 mousePosition={mousePosition}
+                onChangeData={hanldeChangeData}
               />
             </div>
             <div className="pdf-drag-actions">
@@ -117,6 +158,7 @@ const PdfDragBox = memo(function Container(props: PdfDragBoxProps) {
       </div>
     </DndProvider>
   );
-});
+};
 
+const PdfDragBox = forwardRef(PdfDragBoxComponent);
 export default PdfDragBox;
