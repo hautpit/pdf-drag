@@ -120,7 +120,7 @@ export const Box: FC<BoxProps> = ({
   const handleClickExtraBox = () => {
     const findBox = data.find((item) => item.id === id);
     if (findBox) {
-      extraAction?.onClick(findBox);
+      extraAction?.onClick(findBox, data as any);
     }
   };
 

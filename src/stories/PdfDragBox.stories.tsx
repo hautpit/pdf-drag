@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import { Meta, StoryFn } from "@storybook/react";
 import pdf from "./pdf.pdf";
 import {
@@ -17,17 +17,13 @@ const meta: Meta = {
 
 export default meta;
 const Template: StoryFn<PdfDragBoxProps> = (args: PdfDragBoxProps) => {
-  const [boxData, setBoxData] = useState<PdfDragBoxData[]>([]);
-  const [loading, setLoading] = useState(false);
-
   const ref = useRef<PdfRef>(null);
 
-  const handleClick = () => {
-    setLoading(true);
-    const newData = boxData.map((item) => {
+  const handleClick1 = (dataT: PdfDragBoxData[]) => {
+    const newData = dataT.map((item) => {
       return { ...item, isShowImage: false };
     });
-    setBoxData(newData);
+    ref.current?.updateData(newData);
   };
 
   return (
@@ -60,31 +56,17 @@ const Template: StoryFn<PdfDragBoxProps> = (args: PdfDragBoxProps) => {
           imageType: "fill",
         },
       ]}
-      onChangeData={(data) => {
-        const newData: PdfDragBoxData[] = [];
-        data.forEach((item) => {
-          const newItem: PdfDragBoxData = {
-            id: item.id,
-            image: item.image,
-            page: item.page,
-            title: item.id?.toString(),
-            position: item.position,
-            texts: item.texts ?? [],
-          };
-          newData.push(newItem);
-        });
-        setBoxData(newData);
-      }}
       pdf={pdf}
       onSubmit={(a) => {
         console.log(a);
       }}
-      data={boxData}
+      data={[]}
       extraAction={{
         icon: <EditOutlined />,
         title: "Edit",
-        onClick: (item) => {
-          ref.current?.updateData();
+        onClick: (item, data) => {
+          handleClick1(data);
+          // ref.current?.updateData(boxData);
           // handleClick();
           //
         },

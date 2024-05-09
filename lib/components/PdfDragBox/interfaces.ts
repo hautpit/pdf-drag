@@ -1,4 +1,4 @@
-import { BoxModel } from "./PdfDragBox.types";
+import { BoxModel, PdfDragBoxData } from "./PdfDragBox.types";
 
 export interface DragItem {
   type: string;
@@ -13,7 +13,7 @@ export const ItemTypes = {
 };
 
 export interface ExtraAction {
-  onClick: (boxData: BoxModel) => void;
+  onClick: (boxData: BoxModel, boxes: PdfDragBoxData[]) => void;
   icon: React.ReactNode;
   title?: string;
 }

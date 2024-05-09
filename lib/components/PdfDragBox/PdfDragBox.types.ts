@@ -10,7 +10,7 @@ interface BoxItemText {
 }
 
 interface PdfRef {
-  updateData: () => void;
+  updateData: (data: ContainerBoxItem[] | PdfDragBoxData[]) => void;
 }
 
 interface BoxItem {

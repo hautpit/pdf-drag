@@ -20,7 +20,7 @@ import { ContainerBoxItem, PdfDragBoxProps } from ".";
 import { NotificationCircleOutlined } from "./icons";
 import { MousePosition } from "./interfaces";
 import WebFont from "webfontloader";
-import { PdfRef } from "./PdfDragBox.types";
+import { PdfDragBoxData, PdfRef } from "./PdfDragBox.types";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
 
@@ -37,21 +37,10 @@ const PdfDragBoxComponent = (props: PdfDragBoxProps, ref: Ref<PdfRef>) => {
     onChangeData,
   } = props;
 
-  useImperativeHandle(
-    ref,
-    () => {
-      return {
-        updateData: () => {
-          console.log("sssss");
-        },
-      };
-    },
-    []
-  );
-
   const boxRef = useRef<TargetBoxRef>(null);
 
   const [mousePosition, setMousePosition] = useState<MousePosition>();
+  const [boxesData, setBoxesData] = useState<PdfDragBoxData[]>(data ?? []);
 
   const getBoxes = () => {
     const boxesData = boxRef?.current?.getBoxes();
@@ -70,6 +59,12 @@ const PdfDragBoxComponent = (props: PdfDragBoxProps, ref: Ref<PdfRef>) => {
     setMousePosition(position);
   };
 
+  const hanldeChangeData = (data: ContainerBoxItem[]) => {
+    if (onChangeData) {
+      onChangeData(data);
+    }
+  };
+
   useEffect(() => {
     WebFont.load({
       google: {
@@ -78,11 +73,37 @@ const PdfDragBoxComponent = (props: PdfDragBoxProps, ref: Ref<PdfRef>) => {
     });
   }, []);
 
-  const hanldeChangeData = (data: ContainerBoxItem[]) => {
-    if (onChangeData) {
-      onChangeData(data);
-    }
-  };
+  useImperativeHandle(
+    ref,
+    () => {
+      return {
+        updateData: (dataT: ContainerBoxItem[] | PdfDragBoxData[]) => {
+          const newData: PdfDragBoxData[] = [];
+
+          dataT.forEach((item: any) => {
+            const newItem: PdfDragBoxData = {
+              id: item.id,
+              image: item.image,
+              page: item.page,
+              title: item.id?.toString(),
+              position: {
+                height: item.height,
+                width: item.width,
+                left: item.left,
+                top: item.top,
+              },
+              texts: item.texts ?? [],
+              isShowImage: item.isShowImage,
+            };
+            newData.push(newItem);
+          });
+          console.log(123, newData);
+          setBoxesData(newData);
+        },
+      };
+    },
+    []
+  );
 
   return (
     <DndProvider backend={HTML5Backend}>
@@ -127,8 +148,13 @@ const PdfDragBoxComponent = (props: PdfDragBoxProps, ref: Ref<PdfRef>) => {
               <TargetBox
                 ref={boxRef}
                 pdf={pdf}
-                data={data as any}
-                extraAction={extraAction}
+                data={boxesData as any}
+                extraAction={
+                  extraAction && {
+                    ...extraAction,
+                    onClick: (bd, dt) => extraAction.onClick(bd, dt ?? []),
+                  }
+                }
                 mousePosition={mousePosition}
                 onChangeData={hanldeChangeData}
               />
