@@ -94,10 +94,11 @@ const PdfDragBoxComponent = (props: PdfDragBoxProps, ref: Ref<PdfRef>) => {
               },
               texts: item.texts ?? [],
               isShowImage: item.isShowImage,
+              resizable: item.resizable,
+              coordinates: item.coordinates,
             };
             newData.push(newItem);
           });
-          console.log(123, newData);
           setBoxesData(newData);
         },
       };

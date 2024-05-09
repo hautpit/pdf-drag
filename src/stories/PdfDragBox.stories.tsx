@@ -60,7 +60,24 @@ const Template: StoryFn<PdfDragBoxProps> = (args: PdfDragBoxProps) => {
       onSubmit={(a) => {
         console.log(a);
       }}
-      data={[]}
+      data={[
+        {
+          id: "https://localhost:44356/api/v2/System/DefaultSignature",
+          image: "https://localhost:44356/api/v2/System/DefaultSignature",
+          page: 1,
+          title: "",
+          coordinates: [251, 547, 371, 607],
+          resizable: true,
+          texts: [
+            {
+              text: "Email: null",
+            },
+            {
+              text: "Signed at: 09/05/2024 10:03",
+            },
+          ],
+        },
+      ]}
       extraAction={{
         icon: <EditOutlined />,
         title: "Edit",
