@@ -39,10 +39,10 @@ const Template: StoryFn<PdfDragBoxProps> = (args: PdfDragBoxProps) => {
           multiple: false,
           text: "Chữ ký mặc định của công ty",
           resizable: true,
-          texts: [
-            { text: "haajutran@gmail.com" },
-            { text: "SIGNATURE SIGNATURE SIGNATURE SIGNATURE" },
-          ],
+          // texts: [
+          //   { text: "haajutran@gmail.com" },
+          //   { text: "SIGNATURE SIGNATURE SIGNATURE SIGNATURE" },
+          // ],
         },
         {
           id: "https://library.vntts.vn/api/PublicLibrary/ViewFile/pcejziwbbi1o40cf4jk5nppisa2yybvi4thzo10p2t4nbw43fk",

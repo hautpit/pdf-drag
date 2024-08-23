@@ -24,6 +24,10 @@ export interface SourceBoxProps {
   onMouseClick: (position: MousePosition) => void;
 }
 
+const DEFAULT_FONT_SIZE = 6;
+const DEFAULT_FONT_FAMILY = "Roboto";
+const DEFAULT_COLOR = "#d02b2b";
+
 export const SourceBox: FC<SourceBoxProps> = memo(function SourceBox({
   color,
   title,
@@ -31,6 +35,8 @@ export const SourceBox: FC<SourceBoxProps> = memo(function SourceBox({
   item,
   onMouseClick,
 }: SourceBoxProps) {
+  const { texts } = item;
+
   const [forbidDrag, setForbidDrag] = useState(false);
 
   const previewOptions = {
@@ -77,7 +83,6 @@ export const SourceBox: FC<SourceBoxProps> = memo(function SourceBox({
   // const img = new Image();
   // img.src = item.image ?? "";
   // preview(img, previewOptions);
-
   return (
     <div style={containerStyle} className="pdf-box-item">
       {/* <DragPreviewImage src={item.image ?? ""} connect={preview} /> */}
@@ -106,19 +111,44 @@ export const SourceBox: FC<SourceBoxProps> = memo(function SourceBox({
             position: "absolute",
             // height: "100%",
             // width: "100%",
+            height: item.height ?? BOX_HEIGHT,
+            width: item.width ?? BOX_WIDTH,
           }}
           className="flex justify-center"
         >
-          <img
-            src={item.image}
-            alt="signature"
-            style={{
-              height: item.height ?? BOX_HEIGHT,
-              width: item.width ?? BOX_WIDTH,
-              cursor: "move",
-              // margin: 'auto',
-            }}
-          />
+          {item.image && (
+            <div
+              style={{
+                flex: 1,
+              }}
+            >
+              <img
+                alt="signature"
+                src={item.image}
+                style={{
+                  objectFit: item.imageType ?? "contain",
+                  userSelect: "none",
+                }}
+              />
+            </div>
+          )}
+
+          {texts?.length > 0 && (
+            <div style={{ flex: 1, overflow: "hidden" }}>
+              {texts.map((textItem) => (
+                <div
+                  style={{
+                    fontSize: `${textItem.fontSize ?? DEFAULT_FONT_SIZE}pt`,
+                    fontFamily: `${textItem.fontFamily ?? DEFAULT_FONT_FAMILY}`,
+                    color: textItem.color ?? DEFAULT_COLOR,
+                    fontWeight: "bold",
+                  }}
+                >
+                  {textItem.text}
+                </div>
+              ))}
+            </div>
+          )}
         </div>
 
         <small style={{ zIndex: 1 }}>{title}</small>

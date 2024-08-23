@@ -151,7 +151,7 @@ export const Box: FC<BoxProps> = ({
         }}
         className="block flex justify-center"
       >
-        {isShowImage && (
+        {isShowImage && image && (
           <div style={{ flex: 1 }}>
             <img
               alt="signature"
@@ -167,7 +167,13 @@ export const Box: FC<BoxProps> = ({
         )}
 
         {texts?.length > 0 && (
-          <div style={{ flex: 1, overflow: "hidden" }}>
+          <div
+            style={{
+              flex: 1,
+              overflow: "hidden",
+              textAlign: !isShowImage || !image ? "center" : "left",
+            }}
+          >
             {texts.map((textItem) => (
               <div
                 style={{
