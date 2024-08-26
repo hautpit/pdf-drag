@@ -169,23 +169,29 @@ export const Box: FC<BoxProps> = ({
         {texts?.length > 0 && (
           <div
             style={{
+              display: "flex",
               flex: 1,
               overflow: "hidden",
               textAlign: !isShowImage || !image ? "center" : "left",
+              alignItems: !isShowImage || !image ? "center" : "normal",
+              justifyContent: !isShowImage || !image ? "center" : "normal",
             }}
           >
-            {texts.map((textItem) => (
-              <div
-                style={{
-                  fontSize: `${textItem.fontSize ?? DEFAULT_FONT_SIZE}pt`,
-                  fontFamily: `${textItem.fontFamily ?? DEFAULT_FONT_FAMILY}`,
-                  color: textItem.color ?? DEFAULT_COLOR,
-                  fontWeight: "bold",
-                }}
-              >
-                {textItem.text}
-              </div>
-            ))}
+            <div>
+              {texts.map((textItem) => (
+                <div
+                  style={{
+                    fontSize: `${textItem.fontSize ?? DEFAULT_FONT_SIZE}pt`,
+                    fontFamily: `${textItem.fontFamily ?? DEFAULT_FONT_FAMILY}`,
+                    color: textItem.color ?? DEFAULT_COLOR,
+                    fontWeight: "bold",
+                    whiteSpace: "pre-line",
+                  }}
+                >
+                  {textItem.text}
+                </div>
+              ))}
+            </div>
           </div>
         )}
       </div>

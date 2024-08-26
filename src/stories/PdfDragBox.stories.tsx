@@ -63,7 +63,7 @@ const Template: StoryFn<PdfDragBoxProps> = (args: PdfDragBoxProps) => {
       data={[
         {
           id: "https://localhost:44356/api/v2/System/DefaultSignature",
-          image: "https://localhost:44356/api/v2/System/DefaultSignature",
+          // image: "https://localhost:44356/api/v2/System/DefaultSignature",
           page: 1,
           title: "",
           coordinates: [251, 547, 371, 607],
@@ -71,6 +71,9 @@ const Template: StoryFn<PdfDragBoxProps> = (args: PdfDragBoxProps) => {
           texts: [
             {
               text: "Email: null",
+            },
+            {
+              text: "Signed by: Công ty Cổ phần\n  đầu tư và phát triển Becamex",
             },
             {
               text: "Signed at: 09/05/2024 10:03",
