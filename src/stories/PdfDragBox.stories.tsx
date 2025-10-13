@@ -33,8 +33,9 @@ const Template: StoryFn<PdfDragBoxProps> = (args: PdfDragBoxProps) => {
       ref={ref}
       boxes={[
         {
-          id: "https://workflow.vntts.vn/api/v2/System/DefaultSignature",
-          image: "https://workflow.vntts.vn/api/v2/System/DefaultSignature",
+          id: "https://upload.wikimedia.org/wikipedia/commons/b/b5/Nguyễn_Văn_Bình_%2C_Nguyen_Van_Binh_signature.png",
+          image:
+            "https://upload.wikimedia.org/wikipedia/commons/b/b5/Nguyễn_Văn_Bình_%2C_Nguyen_Van_Binh_signature.png",
           title: "kyso@vntt.com.vn",
           multiple: false,
           text: "Chữ ký mặc định của công ty",
@@ -45,14 +46,14 @@ const Template: StoryFn<PdfDragBoxProps> = (args: PdfDragBoxProps) => {
           // ],
         },
         {
-          id: "https://library.vntts.vn/api/PublicLibrary/ViewFile/pcejziwbbi1o40cf4jk5nppisa2yybvi4thzo10p2t4nbw43fk",
+          id: "https://png.pngtree.com/png-clipart/20190604/original/pngtree-round-seal-png-image_879720.jpg",
           image:
-            "https://library.vntts.vn/api/PublicLibrary/ViewFile/70kkdmr1djv46tgxys8myletwg9381c0x7i9mmptp7h7tm0niz",
+            "https://png.pngtree.com/png-clipart/20190604/original/pngtree-round-seal-png-image_879720.jpg",
           multiple: false,
           text: "Ký số cá nhân",
           resizable: true,
-          width: 221,
-          height: 12,
+          width: 100,
+          height: 100,
           imageType: "fill",
         },
       ]}
@@ -60,27 +61,29 @@ const Template: StoryFn<PdfDragBoxProps> = (args: PdfDragBoxProps) => {
       onSubmit={(a) => {
         console.log(a);
       }}
-      data={[
-        {
-          id: "https://localhost:44356/api/v2/System/DefaultSignature",
-          // image: "https://localhost:44356/api/v2/System/DefaultSignature",
-          page: 1,
-          title: "",
-          coordinates: [251, 547, 371, 607],
-          resizable: true,
-          texts: [
-            {
-              text: "Email: null",
-            },
-            {
-              text: "Signed by: Công ty Cổ phần\n  đầu tư và phát triển Becamex",
-            },
-            {
-              text: "Signed at: 09/05/2024 10:03",
-            },
-          ],
-        },
-      ]}
+      data={
+        [
+          // {
+          //   id: "https://localhost:44356/api/v2/System/DefaultSignature",
+          //   // image: "https://localhost:44356/api/v2/System/DefaultSignature",
+          //   page: 1,
+          //   title: "",
+          //   coordinates: [251, 547, 371, 607],
+          //   resizable: true,
+          //   texts: [
+          //     {
+          //       text: "Email: null",
+          //     },
+          //     {
+          //       text: "Signed by: Công ty Cổ phần\n  đầu tư và phát triển Becamex",
+          //     },
+          //     {
+          //       text: "Signed at: 09/05/2024 10:03",
+          //     },
+          //   ],
+          // },
+        ]
+      }
       extraAction={{
         icon: <EditOutlined />,
         title: "Edit",

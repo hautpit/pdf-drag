@@ -321,11 +321,12 @@ const Container = (
     const boxWidth = handleBox.position.width;
 
     const newBoxes: BoxModel[] = [...boxes];
-    let box: BoxModel | undefined = newBoxes.find(
+    const boxIndex = newBoxes.findIndex(
       (boxItem) => boxItem.id === handleBox.id
     );
 
-    if (box) {
+    if (boxIndex > -1) {
+      let box = newBoxes[boxIndex];
       box = {
         ...box,
         height: boxHeight,
@@ -338,6 +339,9 @@ const Container = (
         texts: box.texts,
         isShowImage: box.isShowImage === undefined ? true : box.isShowImage,
       };
+
+      newBoxes.splice(boxIndex, 1);
+      newBoxes.push(box);
     } else {
       const newBox: BoxModel = {
         id: handleBox.id,
