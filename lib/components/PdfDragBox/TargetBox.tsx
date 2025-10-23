@@ -327,22 +327,30 @@ const StatefulTargetBoxComponent = (
 
   useEffect(() => {
     if (numPages > 0) {
-      checkHeight(0);
+      checkHeight();
     }
-  }, [numPages]);
+  }, [pageNumber, numPages]);
 
-  const checkHeight = (times: number) => {
+  // Wait second to check height
+  const wait = (seconds: number) => {
+    return new Promise((resolve) => {
+      setTimeout(resolve, seconds * 1000);
+    });
+  };
+
+  const checkHeight = async (times = 0) => {
+    await wait(0);
     if (times === 5) {
       return;
     }
     const pdfCanvas = document.querySelector(".react-pdf__Page__canvas");
+
     if (pdfCanvas) {
       setPageHeight(pdfCanvas.clientHeight);
       setPageWidth(pdfCanvas.clientWidth);
     } else {
-      setTimeout(() => {
-        checkHeight(times + 1);
-      }, 2000);
+      await wait(2);
+      checkHeight(times + 1);
     }
   };
 

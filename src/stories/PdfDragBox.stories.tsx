@@ -1,6 +1,6 @@
 import React, { useCallback, useRef, useState } from "react";
 import { Meta, StoryFn } from "@storybook/react";
-import pdf from "./pdf.pdf";
+import pdf from "./pdf2.pdf";
 import {
   ContainerBoxItem,
   PdfDragBox,
