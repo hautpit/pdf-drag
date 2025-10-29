@@ -150,25 +150,18 @@ export const Box: FC<BoxProps> = ({
             width: "100%",
             userSelect: "none",
           }}
-          // className="block flex justify-center"
+          className="block flex justify-center"
         >
           {isShowImage && image && (
-            <div
-              style={{
-                width: texts?.length > 0 ? "50%" : "100%",
-                height: "100%",
-                display: "inline-block",
-              }}
-            >
+            <div style={{ flex: 1 }}>
               <img
                 alt="signature"
                 src={image}
                 style={{
                   height: "100%",
-                  width: "auto",
+                  width: "100%",
                   objectFit: imageType ?? "contain",
                   userSelect: "none",
-                  float: texts?.length > 0 ? "right" : undefined,
                 }}
               />
             </div>
@@ -177,9 +170,8 @@ export const Box: FC<BoxProps> = ({
           {texts?.length > 0 && (
             <div
               style={{
-                width: "50%",
-                height: "100%",
-                display: "inline-block",
+                display: "flex",
+                flex: 1,
                 overflow: "hidden",
                 textAlign: !isShowImage || !image ? "center" : "left",
                 alignItems: !isShowImage || !image ? "center" : "normal",
