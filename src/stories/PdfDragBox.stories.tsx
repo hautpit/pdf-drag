@@ -63,29 +63,28 @@ const Template: StoryFn<PdfDragBoxProps> = (args: PdfDragBoxProps) => {
       onSubmit={(a) => {
         console.log(a);
       }}
-      data={
-        [
-          // {
-          //   id: "https://localhost:44356/api/v2/System/DefaultSignature",
-          //   // image: "https://localhost:44356/api/v2/System/DefaultSignature",
-          //   page: 1,
-          //   title: "",
-          //   coordinates: [251, 547, 371, 607],
-          //   resizable: true,
-          //   texts: [
-          //     {
-          //       text: "Email: null",
-          //     },
-          //     {
-          //       text: "Signed by: Công ty Cổ phần\n  đầu tư và phát triển Becamex",
-          //     },
-          //     {
-          //       text: "Signed at: 09/05/2024 10:03",
-          //     },
-          //   ],
-          // },
-        ]
-      }
+      data={[
+        {
+          id: "https://vsip-workflow.becawork.vn/api/personalProfiles/11162/getSignatureSmartCAImageById",
+          image:
+            "https://vsip-workflow.becawork.vn/api/personalProfiles/11162/getSignatureSmartCAImageById",
+          page: 1,
+          title: "",
+          coordinates: [193, 320, 256, 380],
+          resizable: true,
+          texts: [
+            {
+              text: "Email: null",
+            },
+            {
+              text: "Signed by: Công ty Cổ phần\n  đầu tư và phát triển Becamex",
+            },
+            {
+              text: "Signed at: 09/05/2024 10:03",
+            },
+          ],
+        },
+      ]}
       extraAction={{
         icon: <EditOutlined />,
         title: "Edit",

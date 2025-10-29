@@ -88,6 +88,7 @@ export const Box: FC<BoxProps> = ({
         height: boxHeight,
       },
     });
+    resizeImage(boxWidth);
   };
 
   const [{ isDragging }, drag] = useDrag(() => {
@@ -104,8 +105,32 @@ export const Box: FC<BoxProps> = ({
     return <div ref={drag} />;
   }
 
+  const resizeImage = (boxWidth: number) => {
+    const imgEle = document.getElementById(`box-image-${id}`);
+    if (imgEle) {
+      const imgWidth = imgEle?.clientWidth;
+
+      if (imgWidth > 0) {
+        if (boxWidth / 2 <= imgWidth) {
+          imgEle.style.width = `100%`;
+        } else {
+          imgEle.style.width = "auto";
+        }
+      } else {
+        setTimeout(() => {
+          resizeImage(boxWidth);
+        }, 500);
+      }
+    }
+  };
+
   const handleResize = (boxStyle: BoxStyle) => {
-    handleChangeBoxSize(boxStyle.width, boxStyle.height);
+    const boxHeight = boxStyle.height;
+    const boxWidth = boxStyle.width;
+
+    const boxWidthNumber = Number(boxWidth.replace("px", ""));
+    resizeImage(boxWidthNumber);
+    handleChangeBoxSize(boxWidth, boxHeight);
   };
 
   const handleChangeBoxSize = (width: string, height: string) => {
@@ -150,18 +175,26 @@ export const Box: FC<BoxProps> = ({
             width: "100%",
             userSelect: "none",
           }}
-          className="block flex justify-center"
+          // className="block flex justify-center"
         >
           {isShowImage && image && (
-            <div style={{ flex: 1 }}>
+            <div
+              style={{
+                width: texts?.length > 0 ? "50%" : "100%",
+                height: "100%",
+                display: "inline-block",
+              }}
+            >
               <img
+                id={`box-image-${id}`}
                 alt="signature"
                 src={image}
                 style={{
                   height: "100%",
-                  width: "100%",
+                  width: "auto",
                   objectFit: imageType ?? "contain",
                   userSelect: "none",
+                  float: texts?.length > 0 ? "right" : undefined,
                 }}
               />
             </div>
@@ -170,8 +203,9 @@ export const Box: FC<BoxProps> = ({
           {texts?.length > 0 && (
             <div
               style={{
-                display: "flex",
-                flex: 1,
+                width: "50%",
+                height: "100%",
+                display: "inline-block",
                 overflow: "hidden",
                 textAlign: !isShowImage || !image ? "center" : "left",
                 alignItems: !isShowImage || !image ? "center" : "normal",
