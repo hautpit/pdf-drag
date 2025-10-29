@@ -10,6 +10,8 @@ import {
 import { EditOutlined } from "../../lib/components/PdfDragBox/icons/EditOutlined";
 import { PdfRef } from "../../lib/components/PdfDragBox/PdfDragBox.types";
 
+import A from "./getSignatureSmartCAImageById.png";
+
 const meta: Meta = {
   title: "PdfDragBox",
   component: PdfDragBox,
@@ -33,29 +35,29 @@ const Template: StoryFn<PdfDragBoxProps> = (args: PdfDragBoxProps) => {
       ref={ref}
       boxes={[
         {
-          id: "https://upload.wikimedia.org/wikipedia/commons/b/b5/Nguyễn_Văn_Bình_%2C_Nguyen_Van_Binh_signature.png",
-          image:
-            "https://upload.wikimedia.org/wikipedia/commons/b/b5/Nguyễn_Văn_Bình_%2C_Nguyen_Van_Binh_signature.png",
+          id: A,
+          image: A,
+          width: 120,
+          height: 60,
           title: "kyso@vntt.com.vn",
-          multiple: false,
+          multiple: true,
           text: "Chữ ký mặc định của công ty",
           resizable: true,
-          // texts: [
-          //   { text: "haajutran@gmail.com" },
-          //   { text: "SIGNATURE SIGNATURE SIGNATURE SIGNATURE" },
-          // ],
+          texts: [
+            { text: "haajutran@gmail.com" },
+            { text: "SIGNATURE SIGNATURE SIGNATURE SIGNATURE" },
+          ],
         },
-        {
-          id: "https://png.pngtree.com/png-clipart/20190604/original/pngtree-round-seal-png-image_879720.jpg",
-          image:
-            "https://png.pngtree.com/png-clipart/20190604/original/pngtree-round-seal-png-image_879720.jpg",
-          multiple: false,
-          text: "Ký số cá nhân",
-          resizable: true,
-          width: 100,
-          height: 100,
-          imageType: "fill",
-        },
+        // {
+        //   id: A,
+        //   image: A,
+        //   multiple: true,
+        //   text: "Ký số cá nhân",
+        //   resizable: true,
+        //   width: 100,
+        //   height: 100,
+        //   imageType: "fill",
+        // },
       ]}
       pdf={pdf}
       onSubmit={(a) => {

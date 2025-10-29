@@ -125,106 +125,119 @@ export const Box: FC<BoxProps> = ({
   };
 
   return (
-    <div
-      className={`drag-box${
-        id.toString() === activeKey?.toString() ? " active-box" : ""
-      }`}
-      id={id.toString()}
-      ref={drag}
-      style={{
-        ...style,
-        left,
-        top,
-        height: boxHeight,
-        width: boxWidth,
-        userSelect: "none",
-      }}
-      data-testid="box"
-      onClick={() => handleBox()}
-    >
+    <>
       <div
+        className={`drag-box${
+          id.toString() === activeKey?.toString() ? " active-box" : ""
+        }`}
+        id={id.toString()}
+        ref={drag}
         style={{
-          position: "absolute",
-          height: "100%",
-          width: "100%",
+          ...style,
+          left,
+          top,
+          height: boxHeight,
+          width: boxWidth,
           userSelect: "none",
         }}
-        className="block flex justify-center"
+        data-testid="box"
+        onClick={() => handleBox()}
       >
-        {isShowImage && image && (
-          <div style={{ flex: 1 }}>
-            <img
-              alt="signature"
-              src={image}
+        <div
+          style={{
+            position: "absolute",
+            height: "100%",
+            width: "100%",
+            userSelect: "none",
+          }}
+          // className="block flex justify-center"
+        >
+          {isShowImage && image && (
+            <div
               style={{
+                width: texts?.length > 0 ? "50%" : "100%",
                 height: "100%",
-                width: "100%",
-                objectFit: imageType ?? "contain",
-                userSelect: "none",
+                display: "inline-block",
               }}
-            />
-          </div>
-        )}
+            >
+              <img
+                alt="signature"
+                src={image}
+                style={{
+                  height: "100%",
+                  width: "auto",
+                  objectFit: imageType ?? "contain",
+                  userSelect: "none",
+                  float: texts?.length > 0 ? "right" : undefined,
+                }}
+              />
+            </div>
+          )}
 
-        {texts?.length > 0 && (
-          <div
-            style={{
-              display: "flex",
-              flex: 1,
-              overflow: "hidden",
-              textAlign: !isShowImage || !image ? "center" : "left",
-              alignItems: !isShowImage || !image ? "center" : "normal",
-              justifyContent: !isShowImage || !image ? "center" : "normal",
-            }}
-          >
-            <div>
-              {texts.map((textItem) => (
-                <div
-                  style={{
-                    fontSize: `${textItem.fontSize ?? DEFAULT_FONT_SIZE}pt`,
-                    fontFamily: `${textItem.fontFamily ?? DEFAULT_FONT_FAMILY}`,
-                    color: textItem.color ?? DEFAULT_COLOR,
-                    fontWeight: "bold",
-                    whiteSpace: "pre-line",
-                  }}
-                >
-                  {textItem.text}
-                </div>
-              ))}
+          {texts?.length > 0 && (
+            <div
+              style={{
+                width: "50%",
+                height: "100%",
+                display: "inline-block",
+                overflow: "hidden",
+                textAlign: !isShowImage || !image ? "center" : "left",
+                alignItems: !isShowImage || !image ? "center" : "normal",
+                justifyContent: !isShowImage || !image ? "center" : "normal",
+              }}
+            >
+              <div>
+                {texts.map((textItem) => (
+                  <div
+                    style={{
+                      fontSize: `${textItem.fontSize ?? DEFAULT_FONT_SIZE}pt`,
+                      fontFamily: `${textItem.fontFamily ?? DEFAULT_FONT_FAMILY}`,
+                      color: textItem.color ?? DEFAULT_COLOR,
+                      fontWeight: "bold",
+                      whiteSpace: "pre-line",
+                    }}
+                  >
+                    {textItem.text}
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+
+        <div
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            if (onDelete) {
+              onDelete(id);
+            }
+          }}
+        >
+          <div className="drag-box-btn remove-btn">
+            <TrashOutlined />
+          </div>
+        </div>
+        {extraAction && (
+          <div onClick={() => handleClickExtraBox()} title={extraAction.title}>
+            <div className="drag-box-btn menu-btn">
+              <EditOutlined />
             </div>
           </div>
         )}
       </div>
-      <div className="wrapper">
-        <ResizableBox
-          onResize={handleResize}
-          height={boxHeight}
-          width={boxWidth}
-          disables={["top", "left"]}
-          data={data}
-          resizable={resizable}
-        />
-      </div>
-      <div
-        onClick={(e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          if (onDelete) {
-            onDelete(id);
-          }
-        }}
-      >
-        <div className="drag-box-btn remove-btn">
-          <TrashOutlined />
-        </div>
-      </div>
-      {extraAction && (
-        <div onClick={() => handleClickExtraBox()} title={extraAction.title}>
-          <div className="drag-box-btn menu-btn">
-            <EditOutlined />
-          </div>
-        </div>
-      )}
-    </div>
+
+      <ResizableBox
+        onResize={handleResize}
+        left={left}
+        top={top}
+        height={boxHeight}
+        width={boxWidth}
+        disables={["top", "left"]}
+        data={data}
+        resizable={resizable}
+        isActiveBox={id.toString() === activeKey?.toString()}
+      />
+    </>
   );
 };

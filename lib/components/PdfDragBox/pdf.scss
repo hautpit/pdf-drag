@@ -78,7 +78,7 @@
   width: 100%;
   height: 100%;
   background: transparent;
-  position: relative;
+  position: absolute;
 }
 
 .resizable-box {
@@ -98,37 +98,51 @@
 
   --box-red-active: rgba(253, 85, 85, 0.94);
   --box-blue-active: rgba(88, 88, 255, 0.915);
+
+  &.active-box {
+    .resizer {
+      background-color: var(--box-blue);
+      &:hover {
+        background-color: var(--box-blue-active);
+      }
+    }
+  }
 }
 
+// Right
 .rr {
   cursor: col-resize;
-  height: calc(100% + 14px);
-  right: -7px;
-  top: -9px;
+  height: calc(100% + 15px);
+  right: -9px;
+  top: -6px;
+
   width: 2px;
 }
 
+// Top
 .rt {
   cursor: row-resize;
   height: 2px;
-  left: -9px;
-  top: -10px;
+  left: -7px;
+  top: -8px;
   width: calc(100% + 16px);
 }
 
+// Bottom
 .rb {
   cursor: row-resize;
   height: 2px;
-  left: -9px;
-  bottom: -7px;
+  left: -7px;
+  bottom: -9px;
   width: calc(100% + 16px);
 }
 
+// Left
 .rl {
   cursor: col-resize;
   height: calc(100% + 14px);
-  left: -9px;
-  top: -8px;
+  left: -7px;
+  top: -7px;
   width: 2px;
 }
 
@@ -137,7 +151,6 @@
   background: #fff;
   transition: 0.3s;
   background-color: var(--box-red);
-
   &.disabled {
     cursor: default !important;
     pointer-events: none;
@@ -158,17 +171,10 @@
 }
 
 .drag-box {
+  z-index: 1000;
   &:hover {
     .drag-box-btn {
       opacity: 1;
-    }
-  }
-  &.active-box {
-    .resizer {
-      background-color: var(--box-blue);
-      &:hover {
-        background-color: var(--box-blue-active);
-      }
     }
   }
 }

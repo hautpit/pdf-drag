@@ -19,6 +19,9 @@ interface ResizableBoxProps {
   children?: React.ReactNode;
   data: any;
   resizable?: boolean;
+  left: number;
+  top: number;
+  isActiveBox: boolean;
 }
 
 export const ResizableBox = (props: ResizableBoxProps) => {
@@ -30,6 +33,9 @@ export const ResizableBox = (props: ResizableBoxProps) => {
     children,
     data,
     resizable,
+    left,
+    top,
+    isActiveBox,
   } = props;
 
   const refBox = useRef(null);
@@ -183,7 +189,16 @@ export const ResizableBox = (props: ResizableBoxProps) => {
   };
 
   return (
-    <div ref={refBox} className="resizable-box" style={{ height, width }}>
+    <div
+      ref={refBox}
+      className={`resizable-box${isActiveBox ? " active-box" : ""}`}
+      style={{ height, width, left, top }}
+      onClick={(e) => {
+        e.preventDefault();
+        e.stopPropagation();
+      }}
+    >
+      {/* LEFT */}
       <div
         ref={refLeft}
         onClick={(e) => {
@@ -194,7 +209,8 @@ export const ResizableBox = (props: ResizableBoxProps) => {
           "resizer rl",
           (!resizable || disables.includes("left")) && "disabled"
         )}
-      ></div>
+      />
+      {/* TOP */}
       <div
         ref={refTop}
         onClick={(e) => {
@@ -205,7 +221,8 @@ export const ResizableBox = (props: ResizableBoxProps) => {
           "resizer rt",
           (!resizable || disables.includes("top")) && "disabled"
         )}
-      ></div>
+      />
+      {/* RIGHT */}
       <div
         ref={refRight}
         onClick={(e) => {
@@ -216,7 +233,9 @@ export const ResizableBox = (props: ResizableBoxProps) => {
           "resizer rr",
           (!resizable || disables.includes("right")) && "disabled"
         )}
-      ></div>
+      />
+
+      {/* BOTTOM */}
       <div
         ref={refBottom}
         onClick={(e) => {
@@ -227,7 +246,7 @@ export const ResizableBox = (props: ResizableBoxProps) => {
           "resizer rb",
           (!resizable || disables.includes("bottom")) && "disabled"
         )}
-      ></div>
+      />
     </div>
   );
 };
