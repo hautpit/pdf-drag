@@ -111,15 +111,16 @@ export const Box: FC<BoxProps> = ({
       const imgWidth = imgEle?.clientWidth;
 
       if (imgWidth > 0) {
-        if (boxWidth / 2 <= imgWidth) {
-          imgEle.style.width = `100%`;
-        } else {
-          imgEle.style.width = "auto";
-        }
+        // if (boxWidth / 2 <= imgWidth) {
+        //   imgEle.style.width = `100%`;
+        // } else {
+        //   imgEle.style.width = "auto";
+        // }
+        imgEle.style.width = "100%";
       } else {
         setTimeout(() => {
           resizeImage(boxWidth);
-        }, 500);
+        }, 0);
       }
     }
   };
@@ -217,7 +218,9 @@ export const Box: FC<BoxProps> = ({
                   <div
                     style={{
                       fontSize: `${textItem.fontSize ?? DEFAULT_FONT_SIZE}pt`,
-                      fontFamily: `${textItem.fontFamily ?? DEFAULT_FONT_FAMILY}`,
+                      fontFamily: `${
+                        textItem.fontFamily ?? DEFAULT_FONT_FAMILY
+                      }`,
                       color: textItem.color ?? DEFAULT_COLOR,
                       fontWeight: "bold",
                       whiteSpace: "pre-line",
